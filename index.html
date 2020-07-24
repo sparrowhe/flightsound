@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flight Sound</title>
+    <link rel="stylesheet" href="//unpkg.com/view-design/dist/styles/iview.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="//unpkg.com/view-design/dist/iview.min.js"></script>
+    <script src="data.js"></script>
+</head>
+
+<body>
+    <main>
+        <template v-if="tab === 'main'">
+            <h1>Flight Sound</h1>
+            <h3>---- 100% free cabin broadcasting website.</h3>
+            <br>
+            <h3 style="color: #2d8cf0;">For any flight simulation game.</h3>
+            <br>
+            <br>
+            <br>
+            <p>
+                <img src="sources/img/iflogo.jpg" width="120px">
+                <img src="sources/img/xplanelogo.jpg" width="120px">
+                <img src="sources/img/rfslogo.jpg" width="120px">
+            </p>
+        </template>
+        <template v-else>
+            <p><img :src="'sources/img/' + tab + '.jpg'" width="300px"></p>
+            <br>
+            <h1>{{ tab }}</h1>
+            <br>
+            <audio :src="audioSrc" :loop='loop' autoplay="autoplay" controls="controls">
+                Your browser does not support the audio element.
+            </audio>
+            <br>
+            <br>
+            <i-switch v-model="loop"></i-switch>&nbsp;<span>Loop audio</span>
+            <br>
+            <br>
+            <i-button @click='btnClick(i)' style="margin: 3px 5px;" v-for="i in window.data[tab]">{{ i }}</i-button>
+        </template>
+    </main>
+    <div id="sidebar">
+        <i-menu mode="horizontal" @on-select='onSel' active-name="main">
+            <menu-item name="main">
+                <icon type="md-home"></icon>
+                Home
+            </menu-item>
+            <submenu>
+                <template slot="title">
+                    <icon type="md-heart"></icon>
+                    Airlines
+                </template>
+                <menu-group title="Choose an airline">
+                    <menu-item name="Air China">
+                        <icon type="md-heart"></icon>
+                        Air China
+                    </menu-item>
+                    <menu-item name="China Eastern Airlines">
+                        <icon type="md-heart"></icon>
+                        China Eastern Airlines
+                    </menu-item>
+                </menu-group>
+            </submenu>
+        </i-menu>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
